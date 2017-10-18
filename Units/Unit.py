@@ -1,13 +1,11 @@
 import pygame
-from Map.game_map import GameMap
 
 
 class Unit:
-	radius = int(GameMap.tile_size / 3)
-
-	def __init__(self, x, y):
+	def __init__(self, x, y, radius):
 		self.x = self.targetX = x
 		self.y = self.targetY = y
+		self.radius = radius
 
 	def go_to(self, game_map, targetX, targetY):
 		"""A target position that the unit will move towards"""
@@ -29,8 +27,8 @@ class Unit:
 			self.y -= 1
 
 	def get_screen_loc(self, game_map):
-		return (self.x * game_map.tile_size + int(game_map.tile_size / 2),
-				self.y * game_map.tile_size + int(game_map.tile_size / 2))
+		return (self.x * game_map.tile_width + int(game_map.tile_width / 2),
+				self.y * game_map.tile_height + int(game_map.tile_height / 2))
 
 	def draw(self, screen, game_map):
 		# TODO ADAM could screen position be gathered without utilizing map details?

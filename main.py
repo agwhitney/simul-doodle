@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 
+from config import *
+
 from Managers import GameManager
 from Managers.event_handlers import handle_keys
 from Map.game_map import GameMap
@@ -12,14 +14,14 @@ if __name__ == '__main__':
 	# SETTINGS
 	pygame.init()
 	pygame.display.set_caption("Ayy Lmao")
-	screen = pygame.display.set_mode([500, 500], RESIZABLE)
+	screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT], RESIZABLE)
 	clock = pygame.time.Clock()
 	done = False
 	ticks = 0
 
 	# MAP AND UNIT INITIALIZE
-	unit = Unit(0, 0)
-	game_map = GameMap()
+	unit = Unit(0, 0, radius=int(TILE_WIDTH / 3))		# Temporary
+	game_map = GameMap(MAP_WIDTH, MAP_HEIGHT, TILE_WIDTH, TILE_HEIGHT)
 
 	# while ticks < 100 and not done:
 	while not done:
@@ -32,7 +34,7 @@ if __name__ == '__main__':
 			if quit:
 				done = True
 			if resize:
-				screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+				screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
 			if mmb_down:
 				# These can be used elsewhere as long as the button is held
 				x0 = event.pos[0]
