@@ -8,7 +8,6 @@ from Managers.event_handlers import handle_keys
 from Map.game_map import GameMap
 from Units.Unit import Unit
 
-# import game
 
 if __name__ == '__main__':
 	# SETTINGS
@@ -20,7 +19,7 @@ if __name__ == '__main__':
 	ticks = 0
 
 	# MAP AND UNIT INITIALIZE
-	unit = Unit(0, 0, radius=int(TILE_WIDTH / 3))		# Temporary
+	unit = Unit(0, 0, radius=int(TILE_WIDTH / 3))		# Temporaryyyyy
 	game_map = GameMap(MAP_WIDTH, MAP_HEIGHT, TILE_WIDTH, TILE_HEIGHT)
 
 	# while ticks < 100 and not done:
@@ -39,6 +38,7 @@ if __name__ == '__main__':
 				# These can be used elsewhere as long as the button is held
 				x0 = event.pos[0]
 				y0 = event.pos[1]
+				unit.go_to(game_map, x0, y0)
 			if mmb_drag:
 				xf = event.pos[0]
 				yf = event.pos[1]

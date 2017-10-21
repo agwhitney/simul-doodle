@@ -2,6 +2,7 @@ import pygame
 
 
 class Tile:
+	"""A base Tile object, built upon a pygame.Rect object"""
 	def __init__(self, x, y, width, height, terrain, movement_mod, color):
 		self.rect = pygame.Rect(x, y, width, height)
 		self.terrain = terrain

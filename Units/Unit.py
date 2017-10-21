@@ -2,13 +2,20 @@ import pygame
 
 
 class Unit:
+	"""Units should probably be represented as pygame.Sprite objects.
+	I'm not quite sure how best to do that, yet, but it'll get there.
+	"""
 	def __init__(self, x, y, radius):
 		self.x = self.targetX = x
 		self.y = self.targetY = y
 		self.radius = radius
+		self.selected = False
 
 	def go_to(self, game_map, targetX, targetY):
-		"""A target position that the unit will move towards"""
+		"""Gather a new coordinate to move towards"""
+		# if not self.selected:
+		# 	return
+
 		if -1 < targetX < game_map.width:
 			self.targetX = targetX
 		if -1 < targetY < game_map.height:
