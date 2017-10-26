@@ -3,22 +3,32 @@ import random
 
 
 class GameMap:
-	tile_size = 50
-	tiles = tile_list()
+	def __init__(self, width, height, tile_width, tile_height):
+		self.width = width
+		self.height = height
+		self.tile_width = tile_width
+		self.tile_height = tile_height
+
+		self.tile_list = tile_list()
+		self.map = self.create_new_map()
+
+	def random_tile(self, x, y):
+		"""Returns a tile object chosen at random from the tile_list"""
+		tile_number = random.randint(0, len(self.tile_list) - 1)
+		return self.tile_list[tile_number](x * self.tile_width, y * self.tile_height, self.tile_width, self.tile_height)
 
 	def create_new_map(self):
+		"""Returns a new map; a 2d list of tile objects"""
 		new_map = []
+
 		for x in range(self.width):
 			new_map.append([])
 			row = new_map[x]
 			for y in range(self.height):
 				row.append([])
-				row[y] = self.new_random_tile(x, y, GameMap.tile_size)
-		return new_map
+				row[y] = self.random_tile(x, y)
 
-	def new_random_tile(self, x, y, tile_size):
-		tile_number = random.randint(0, len(GameMap.tiles) - 1)
-		return GameMap.tiles[tile_number](x * tile_size, y * tile_size, tile_size, tile_size)
+		return new_map
 
 	def draw(self, screen):
 		screen.fill((0, 0, 0))
@@ -26,8 +36,3 @@ class GameMap:
 		for x in range(self.width):
 			for y in range(self.height):
 				self.map[x][y].draw(screen)
-
-	def __init__(self, width=10, height=10):
-		self.width = width
-		self.height = height
-		self.map = self.create_new_map()
