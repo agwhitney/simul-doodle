@@ -6,7 +6,7 @@ from config import *
 from Managers import GameManager
 from Managers.event_handlers import handle_keys
 from Map.game_map import GameMap
-from Units.newUnit import Unit
+from Units.Entity import Entity
 
 
 if __name__ == '__main__':
@@ -19,36 +19,31 @@ if __name__ == '__main__':
 	ticks = 0
 
 	# MAP AND UNIT INITIALIZE
-	unit = Unit()
 	game_map = GameMap(MAP_WIDTH, MAP_HEIGHT, TILE_WIDTH, TILE_HEIGHT)
+	player = Entity(0, 0)
 
-	units = pygame.sprite.Group()
-	units.add(unit)
+	player_group = pygame.sprite.GroupSingle()
+	player_group.add(player)
 
-	# while ticks < 100 and not done:
+	# VARIABLES
+	last_left_click = [None, None]  # Last position clicked with LMB
+
 	while not done:
 		for event in pygame.event.get():
-			print(event)
-			quit = handle_keys(event).get('quit')
+			quit_game = handle_keys(event).get('quit')
 			resize = handle_keys(event).get('resize')
 			lmb_down = handle_keys(event).get('lmb_down')
 
-			if quit:
+			if quit_game:
 				done = True
 			if resize:
 				screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
 			if lmb_down:
-				# These can be used elsewhere as long as the button is held
-				x0 = event.pos[0]
-				y0 = event.pos[1]
-				unit.target_x, unit.target_y = x0, y0
+				last_left_click[0], last_left_click[1] = event.pos
 
-		unit.move()
+		player.move(last_left_click[0], last_left_click[1])
 		game_map.draw(screen)
-		units.draw(screen)
+		player_group.draw(screen)
 		pygame.display.update()  # No args: same as flip
-		# ticks += 1
-		# if ticks % 10 == 0:
-		# 	# GameManager.update(screen, game_map, unit)
-		# 	print(ticks)
+
 		clock.tick(60)  # TODO make this scale w user selected speed somehow
