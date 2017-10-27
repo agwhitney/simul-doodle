@@ -20,12 +20,15 @@ class Entity(pygame.sprite.Sprite):
 			# This is a catch but I think it's janky and don't like it.
 			return
 
-		if self.rect.x < target_x:
+		center_x = self.rect.center[0]
+		center_y = self.rect.center[1]
+
+		if center_x < target_x:
 			self.rect.x += 1
-		elif self.rect.x > target_x:
+		elif center_x > target_x:
 			self.rect.x -= 1
 
-		if self.rect.y < target_y:
+		if center_y < target_y:
 			self.rect.y += 1
-		elif self.rect.y > target_y:
+		elif center_y > target_y:
 			self.rect.y -= 1
