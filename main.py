@@ -50,6 +50,10 @@ if __name__ == '__main__':
 				last_left_click = event.pos
 
 		# MANAGE AND UPDATE - WILL BE SEPARATED TBD
+		collisions = pygame.sprite.spritecollide(player, apple_group, True)
+		for hit in collisions:
+			print("that's a spicy meatball")
+
 		player_group.update(last_left_click)
 		apple_group.update()
 		game_map.draw(screen)
